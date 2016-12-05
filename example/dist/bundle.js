@@ -488,7 +488,6 @@ var animation = {
         animationTimingFunction: 'ease-out'
     },
     showContentAnimation: insertKeyframesRule({
-
         '0%': {
             opacity: 0,
             transform: 'translate3d(calc(-100vw - 50%), 0, 0)'
@@ -504,7 +503,6 @@ var animation = {
     }),
 
     hideContentAnimation: insertKeyframesRule({
-
         '0%': {
             opacity: 1,
             transform: 'translate3d(0, 0, 0)'
@@ -1124,7 +1122,7 @@ module.exports = function(animation){
             return {
                 willHidden: false,
                 hidden: true
-            }
+            };
         },
 
         hasHidden: function(){
@@ -1146,7 +1144,7 @@ module.exports = function(animation){
 
         handleBackdropClick: function() {
             if (this.props.closeOnClick) {
-                this.hide();
+                this.hide("backdrop");
             }
         },
 
@@ -1185,30 +1183,31 @@ module.exports = function(animation){
                 }
             }
 
-            var backdrop = this.props.backdrop? React.createElement("div", {style: backdropStyle, onClick: this.props.closeOnClick? this.handleBackdropClick: null}): undefined;
+           // var backdrop = this.props.backdrop? <div style={backdropStyle} onClick={this.props.closeOnClick? this.handleBackdropClick: null} />: undefined;
 
             if(willHidden) {
                 var node = this.refs[ref];
                 this.addTransitionListener(node, this.leave);
             }
 
-            return (React.createElement("span", null, 
-                React.createElement("div", {ref: "modal", style: modalStyle, className: this.props.className}, 
-                    sharp, 
-                    React.createElement("div", {ref: "content", tabIndex: "-1", style: contentStyle}, 
-                        this.props.children
+            return (
+            React.createElement("span", null, 
+                React.createElement("div", {style: backdropStyle, onClick: this.props.closeOnClick? this.handleBackdropClick: null}, 
+                    React.createElement("div", {ref: "modal", style: modalStyle, className: this.props.className}, 
+                        sharp, 
+                        React.createElement("div", {ref: "content", tabIndex: "-1", style: contentStyle}, 
+                            this.props.children
+                        )
                     )
-                ), 
-                backdrop
+                )
              ))
-            ;
         },
 
         leave: function(){
             this.setState({
                 hidden: true
             });
-            this.props.onHide();
+            this.props.onHide(this.state.hideSource);
         },
 
         enter: function(){
@@ -1230,10 +1229,15 @@ module.exports = function(animation){
             }.bind(this), 0);
         },
 
-        hide: function(){
+        hide: function(source){
             if (this.hasHidden()) return;
 
+            if (!source) {
+                source = "hide";
+            }
+
             this.setState({
+                hideSource: source,
                 willHidden: true
             });
         },
@@ -1242,14 +1246,20 @@ module.exports = function(animation){
             if (this.hasHidden())
                 this.show();
             else
-                this.hide();
+                this.hide("toggle");
         },
 
         listenKeyboard: function(event) {
+            (typeof(this.props.keyboard)=="function")
+                ?this.props.keyboard(event)
+                :this.closeOnEsc(event);
+        },
+
+        closeOnEsc: function(event){
             if (this.props.keyboard &&
                     (event.key === "Escape" ||
                      event.keyCode === 27)) {
-                this.hide();
+                this.hide("keyboard");
             }
         },
 
@@ -1261,7 +1271,7 @@ module.exports = function(animation){
             window.removeEventListener("keydown", this.listenKeyboard, true);
         }
     });
-}
+};
 
 },{"domkit/appendVendorPrefix":1,"domkit/transitionEvents":7,"react":undefined}],"boron":[function(require,module,exports){
 module.exports = {

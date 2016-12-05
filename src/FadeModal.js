@@ -62,20 +62,22 @@ module.exports = modalFactory({
     getModalStyle: function(willHidden) {
         return appendVendorPrefix({
             zIndex: 1050,
-            position: "fixed",
+            position: "absolute",
             width: "500px",
-            transform: "translate3d(-50%, -50%, 0)",
-            top: "50%",
+            transform: "translate3d(-50%, 0, 0)",
+            top: "40px",
+            marginBottom : "5%",
             left: "50%"
         })
     },
     getBackdropStyle: function(willHidden) {
         return appendVendorPrefix({
-            position: "fixed",
+            position: "absolute",
             top: 0,
             right: 0,
-            bottom: 0,
             left: 0,
+            minHeight: '100%',
+            overflowX: 'scroll',
             zIndex: 1040,
             backgroundColor: "#373A47",
             animationFillMode: 'forwards',
