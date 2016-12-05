@@ -1,13 +1,13 @@
 {
-  "name": "boron",
-  "version": "0.2.3",
+  "name": "boron-scroll",
+  "version": "0.2.4",
   "description": "A collection of dialog animations with React.js",
   "main": "Boron.js",
   "author": "Yuanyan Cao",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/yuanyan/boron.git"
+    "url": "https://github.com/GManzato/boron.git"
   },
   "dependencies": {
     "domkit": "^0.0.1"
