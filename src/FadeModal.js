@@ -62,23 +62,25 @@ export default modalFactory({
       position: 'fixed',
       width: '500px',
       transform: 'translate3d(-50%, -50%, 0)',
-      top: '50%',
-      left: '50%',
+      top: "40px",
+      marginBottom : "5%",
+      left: "50%"
     });
   },
   getBackdropStyle: (willHidden) => {
     return appendVendorPrefix({
-      position: 'fixed',
+      position: "fixed",
       top: 0,
       right: 0,
-      bottom: 0,
       left: 0,
+      minHeight: '100%',
+      overflowX: 'scroll',
       zIndex: 1040,
-      backgroundColor: '#373A47',
+      backgroundColor: "#373A47",
       animationFillMode: 'forwards',
       animationDuration: '0.3s',
       animationName: willHidden ? hideBackdropAnimation : showBackdropAnimation,
-      animationTimingFunction: (willHidden ? hideAnimation : showAnimation).animationTimingFunction,
+      animationTimingFunction: (willHidden ? hideAnimation : showAnimation).animationTimingFunction
     });
   },
   getContentStyle: (willHidden) => {
@@ -92,3 +94,4 @@ export default modalFactory({
     });
   },
 });
+

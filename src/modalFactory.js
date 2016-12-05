@@ -88,13 +88,14 @@ export default (animation) => {
 
       return (
         React.createElement('span', null,
+          backdrop,
           React.createElement('div', {ref: 'modal', style: modalStyle, className: this.props.className},
               sharp,
               React.createElement('div', {ref: 'content', tabIndex: '-1', style: contentStyle},
                   this.props.children
               )
           ),
-          backdrop
+          
         )
       );
     };
