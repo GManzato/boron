@@ -72,7 +72,7 @@ module.exports = modalFactory({
     },
     getBackdropStyle: function(willHidden) {
         return appendVendorPrefix({
-            position: "absolute",
+            position: "fixed",
             top: 0,
             right: 0,
             left: 0,
