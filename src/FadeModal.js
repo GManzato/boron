@@ -62,7 +62,7 @@ module.exports = modalFactory({
     getModalStyle: function(willHidden) {
         return appendVendorPrefix({
             zIndex: 1050,
-            position: "absolute",
+            position: "fixed",
             width: "500px",
             transform: "translate3d(-50%, 0, 0)",
             top: "40px",
